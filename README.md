@@ -2,7 +2,7 @@
 ProcessWire module that makes excluded days and days-of-week configurable in JqueryUI datepicker
 
 ## Status
-Beta, please test thoroughly before using in production sites
+Work in process, please do not use!
 
 ## Description
 Adds config options for the JqueryUI datepicker to InputfieldDatetime:
