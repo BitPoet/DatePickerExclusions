@@ -2,7 +2,7 @@
 ProcessWire module that makes excluded days and days-of-week configurable in JqueryUI datepicker
 
 ## Status
-Work in progress, please do not use!
+Proof-of-concept. Only use in production if you really know what you are doing!
 
 ## Description
 Adds config options for the JqueryUI datepicker to InputfieldDatetime:
@@ -18,14 +18,14 @@ As the name says, this text is displayed if the user hovers over a day of week t
 ![Example hover text for excluded day of week](https://github.com/BitPoet/bitpoet.github.io/blob/master/img/dpe_ex1.png)
 
 ### Dates to Exclude
-You can also exclude specific dates. Just enter a list of dates in the format yyyymmdd in the
+You can also exclude specific dates. Just enter a list of dates in the format yyyy-mm-dd in the
 textarea.
 
-Example: ```20231020,20231021```
+Example: ```2023-10-20,2023-10-21```
 
 You can also add an optional hover text to every date here by appending it with an "=".
 
-Example: ```20231020=Away for the company summer party,20231021=Closed due to annual stocktaking```
+Example: ```2023-10-20=Away for the company party,2023-10-21=Closed due to annual stocktaking```
 
 ![Example hover text for specific date](https://github.com/BitPoet/bitpoet.github.io/blob/master/img/dpe_ex2.png)
 
@@ -33,6 +33,10 @@ Example: ```20231020=Away for the company summer party,20231021=Closed due to an
 This isn't directly related to exclusions, but it lets you set which day is the first day of week.
 Normally, JqueryUI datepicker should deduce this automatically from the browser's regional settings,
 but you may want to override it.
+
+## Caveats
+
+Doesn't work with inline datepickers (yet) as it relies on the focus event on the input.
 
 ## Todo
 

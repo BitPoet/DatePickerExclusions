@@ -37,15 +37,15 @@ class DatePickerExclusions extends WireData implements Module {
 		
 		$script = '<script>
 			$(document).ready(function() {
-				$("#Inputfield_' . $fname . '").datepicker({
-					beforeShowDay: dt => {
+				$("#Inputfield_' . $fname . '").one( "focus", function( event, ui ) {
+					$("#Inputfield_' . $fname . '").datepicker("option", "beforeShowDay", function(dt) {
 						const excludeDaysOfWeek = ' . $excludeDaysOfWeek . ';
 						const excludeDates = ' . $daysArray . ';
 						var day = dt.getDay();
 						if(excludeDaysOfWeek.includes(day)) {
 							return [false, "", "' . $excludeDaysOfWeekText . '"];
 						}
-						var dateStr = $.datepicker.formatDate("yymmdd", dt);
+						var dateStr = $.datepicker.formatDate("yy-mm-dd", dt);
 						for(var i = 0; i < excludeDates.length; i++) {
 							const excludeDate = excludeDates[i];
 							if(excludeDate[0] == dateStr) {
@@ -53,9 +53,9 @@ class DatePickerExclusions extends WireData implements Module {
 							}
 						}
 						return [true, "", ""];
-					}
+					});
+					$("#Inputfield_' . $fname . '").datepicker("option", "firstDay", ' . $firstDayOfWeek . ');
 				});
-				$("#Inputfield_' . $fname . '").datepicker("option", "firstDay", ' . $firstDayOfWeek . ');
 			});
 		</script>';
 		
@@ -85,7 +85,7 @@ class DatePickerExclusions extends WireData implements Module {
 			
 			$d = $parts[0];
 			
-			$d = $this->sanitizer->digits($d);
+			$d = preg_replace('/[^0-9-]/', '', $d);
 			$out[] = "['$d', '$text']";
 		}
 		
@@ -123,7 +123,7 @@ class DatePickerExclusions extends WireData implements Module {
 
 		$f = $this->modules->get('InputfieldTextarea');
 		$f->label = $this->_('Dates to Exclude');
-		$f->description = $this->_("Enter dates in the format yyyymmdd, separated by commas, e.g. 20231115,20231116. You can specify an optional hover text by appending that with an equal sign, e.g. 20231031=Halloween");
+		$f->description = $this->_("Enter dates in the format yyyy-mm-dd, separated by commas, e.g. 2023-11-15,2023-11-16. You can specify an optional hover text by appending that with an equal sign, e.g. 2023-10-31=Halloween");
 		$f->attr('name', 'excludeDates');
 		$f->attr('value', $field->excludeDates);
 		$wrap->append($f);
